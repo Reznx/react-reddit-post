@@ -1,26 +1,44 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { Home } from "./pages/Home";
-import { About } from "./pages/About";
-import { Navbar } from "./components/Navbar";
-import { Alert } from "./components/Alert";
-import { AlertState } from "./context/alert/AlertState";
+import Search from "./components/Search";
+import PostsList from "./components/PostsList";
 
-function App() {
+const App = () => {
+  const posts = [
+    {
+      id: 1,
+      title: "Здесь Описание поста",
+      img: "https://www.uoe.co.uk/wp-content/uploads/2018/07/Post-box-1.jpg",
+      data: "28.09.2019",
+      author: "John Doe"
+    },
+    {
+      id: 2,
+      title: "Здесь Описание поста",
+      img: "https://www.uoe.co.uk/wp-content/uploads/2018/07/Post-box-1.jpg",
+      data: "28.09.2019",
+      author: "John Doe"
+    },
+    {
+      id: 3,
+      title: "Здесь Описание поста",
+      img: "https://www.uoe.co.uk/wp-content/uploads/2018/07/Post-box-1.jpg",
+      data: "28.09.2019",
+      author: "John Doe"
+    },
+    {
+      id: 3,
+      title: "Здесь Описание поста",
+      img: "https://www.uoe.co.uk/wp-content/uploads/2018/07/Post-box-1.jpg",
+      data: "28.09.2019",
+      author: "John Doe"
+    }
+  ];
   return (
-    <AlertState>
-      <BrowserRouter>
-        <Navbar />
-        <div className="container pt-4">
-          <Alert />
-          <Switch>
-            <Route path={"/"} exact component={Home} />
-            <Route path={"/about"} exact component={About} />
-          </Switch>
-        </div>
-      </BrowserRouter>
-    </AlertState>
+    <div className="container mt-5">
+      <Search />
+      <PostsList posts={posts} />
+    </div>
   );
-}
+};
 
 export default App;
