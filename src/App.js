@@ -11,8 +11,7 @@ export const App = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const raw = localStorage.getItem("posts") || [];
-    setPosts(JSON.parse(raw));
+    setPosts(JSON.parse(localStorage.getItem("posts")) || []);
   }, []);
 
   useEffect(() => {
