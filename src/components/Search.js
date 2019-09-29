@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 const Search = ({ onSearch }) => {
-  const [value, setValue] = useState("pikabu");
+  const [value, setValue] = useState("");
 
   const submitHandler = e => {
     e.preventDefault();
