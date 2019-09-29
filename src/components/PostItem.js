@@ -3,22 +3,24 @@ import { getCurrentDate } from "../utils/dateTime";
 import PropTypes from "prop-types";
 
 const PostItem = ({ post }) => {
+  const data = post.data;
+
   return (
     <div className="col-sm-12 col-md-6 col-lg-4">
       <div className=" card-link">
         <div className="card">
           <div className="card-body">
             <div className="card-title">
-              <a href={post.data.url} target="_blank" rel="noopener noreferrer">
-                {post.data.title}
+              <a href={data.url} target="_blank" rel="noopener noreferrer">
+                {data.title}
               </a>
             </div>
             <p className="card-text">
-              Дата создания: {getCurrentDate(post.data.created)}
+              Дата создания: {getCurrentDate(data.created)}
               <br />
-              Автор поста: {post.data.author}
+              Автор поста: {data.author}
               <br />
-              Запостили на: r/{post.data.subreddit}
+              Запостили на: r/{data.subreddit}
             </p>
           </div>
         </div>
