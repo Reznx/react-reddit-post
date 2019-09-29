@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import PostsList from "./components/PostsList";
 import Loader from "./components/Loader";
 import Pagination from "./components/Pagination";
@@ -8,15 +8,16 @@ const Search = React.lazy(() => import("./components/Search"));
 const App = () => {
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
-
-  // useEffect(() => {
-  //   const raw = localStorage.getItem("posts") || [];
-  //   setPosts(JSON.parse(raw);
-  // }, []);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     localStorage.setItem("posts", JSON.stringify(posts));
   }, [posts]);
+
+  useEffect(() => {
+    const raw = localStorage.getItem("posts") || [];
+    setPosts(JSON.parse(raw) || []);
+  }, []);
 
   const searchPosts = async title => {
     try {
@@ -27,9 +28,11 @@ const App = () => {
       const json = await response.json();
       setPosts(json.data.children);
       setLoading(false);
-      console.log(json.data.children);
+      setError("");
     } catch (e) {
-      console.error(e);
+      setError("Что-то пошло не так! Повторите попытку");
+      setLoading(false);
+      setPosts([]);
     }
   };
 
@@ -57,12 +60,13 @@ const App = () => {
       </React.Suspense>
 
       {loading && <Loader />}
+      {error ? <p className="text-center pt-5">{error}</p> : null}
 
       {posts.length ? (
-        <Fragment>
+        <>
           <PostsList posts={posts} />
           <Pagination />
-        </Fragment>
+        </>
       ) : loading ? null : (
         <p className="text-center pt-5">Введите название сабреддита!</p>
       )}
