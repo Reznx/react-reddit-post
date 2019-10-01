@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import PostsList from "./components/PostsList";
-import Loader from "./components/Loader";
-import Pagination from "./components/Pagination";
+import PostsList from "../components/PostsList";
+import Loader from "../components/Loader";
+import Pagination from "../components/Pagination";
 
-const Search = React.lazy(() => import("./components/Search"));
+const Search = React.lazy(() => import("../components/Search"));
 
-export const App = () => {
+export const Home = () => {
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState("");
-  const [title, setTitle] = useState("");
 
   useEffect(() => {
     setPosts(JSON.parse(localStorage.getItem("posts")) || []);
@@ -18,10 +17,6 @@ export const App = () => {
   useEffect(() => {
     localStorage.setItem("posts", JSON.stringify(posts));
   }, [posts]);
-
-  const onChangeInput = value => {
-    setTitle(value);
-  };
 
   const searchPosts = async title => {
     try {
@@ -42,15 +37,9 @@ export const App = () => {
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-5">
-        Reddit hot posts <em>r/{title}</em>
-      </h1>
+      <h1 className="text-center mb-5">Reddit hot posts</h1>
       <React.Suspense fallback={<Loader />}>
-        <Search
-          onSearch={searchPosts}
-          title={title}
-          onChangeInput={onChangeInput}
-        />
+        <Search onSearch={searchPosts} />
       </React.Suspense>
 
       {loading && <Loader />}
@@ -68,4 +57,4 @@ export const App = () => {
   );
 };
 
-export default App;
+export default Home;

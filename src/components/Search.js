@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-const Search = ({ onSearch }) => {
+const Search = ({ onSearch, title, onChangeInput }) => {
   const [value, setValue] = useState("");
 
   const submitHandler = e => {
     e.preventDefault();
 
-    if (value.trim()) {
-      onSearch(value);
-      setValue("");
+    if (title.trim()) {
+      onSearch(title);
+      onChangeInput(value);
     }
+  };
+
+  const onChange = event => {
+    const { value } = event.target;
+    onChangeInput(value);
   };
 
   return (
@@ -22,8 +27,8 @@ const Search = ({ onSearch }) => {
         type="text"
         className="form-control"
         name="search"
-        onChange={e => setValue(e.target.value)}
-        value={value}
+        onChange={onChange}
+        value={title}
         placeholder="введите название сабреддита"
       />
       <div className="input-group-append">
